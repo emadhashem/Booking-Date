@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class MemberServiceImpl implements MemberService, UserDetailsService {
+public class MemberServiceImpl implements MemberService {
     private final MemberRepo memberRepo;
     private final RoleRepo roleRepo;
 
@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         Member member = memberRepo.findByEmail(username);
         if (member == null) {
             log.error("User {} Not found", username);
-            throw new UsernameNotFoundException("User {} Not found");
+            throw new UsernameNotFoundException("User Not found");
         } else {
             log.info("User {} found", username);
         }
@@ -79,10 +79,5 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public List<Member> getMembers() {
         log.info("Fetch members");
         return memberRepo.findAll();
-    }
-
-    @Bean
-    private BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

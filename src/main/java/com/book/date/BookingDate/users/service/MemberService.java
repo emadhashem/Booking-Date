@@ -2,10 +2,11 @@ package com.book.date.BookingDate.users.service;
 
 import com.book.date.BookingDate.users.entity.Member;
 import com.book.date.BookingDate.users.entity.Role;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface MemberService {
+public interface MemberService extends UserDetailsService {
 
     Member save(Member member);
 

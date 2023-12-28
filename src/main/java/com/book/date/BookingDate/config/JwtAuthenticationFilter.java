@@ -1,11 +1,16 @@
 package com.book.date.BookingDate.config;
 
+import com.book.date.BookingDate.users.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,6 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
     private final JwtService jwtService;
+    private final MemberService memberService;
 
     @Override
     protected void doFilterInternal(
@@ -33,6 +39,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         jwtToken = authHeader.split(" ")[1];
         email = jwtService.extractUsername(jwtToken);
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.memberService.loadUserByUsername(email);
+            updateSecurityContextHolder(request, jwtToken, userDetails);
+        }
+        filterChain.doFilter(request, response);
+    }
+
+    private void updateSecurityContextHolder(HttpServletRequest request, String jwtToken, UserDetails userDetails) {
+        if (jwtService.isTokenValid(jwtToken, userDetails)) {
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                    userDetails,
+                    null,
+                    userDetails.getAuthorities()
+            );
+            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+        }
     }
 
     private boolean isBearerFound(String authHeader) {

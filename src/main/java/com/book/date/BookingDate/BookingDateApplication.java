@@ -20,15 +20,6 @@ public class BookingDateApplication {
         return args -> {
             memberService.saveRole(new Role("ROLE_USER"));
             memberService.saveRole(new Role("ROLE_VENDOR"));
-
-            memberService.save(new Member("tst1@tst.com", "test1", "1234"));
-            memberService.save(new Member("tst2@tst.com", "test2", "1234"));
-            memberService.save(new Member("tst3@tst.com", "test3", "1234"));
-
-            memberService.addRoleToMember("tst1@tst.com", "ROLE_VENDOR");
-            memberService.addRoleToMember("tst1@tst.com", "ROLE_USER");
-            memberService.addRoleToMember("tst2@tst.com", "ROLE_USER");
-            memberService.addRoleToMember("tst3@tst.com", "ROLE_USER");
         };
     }
 }
