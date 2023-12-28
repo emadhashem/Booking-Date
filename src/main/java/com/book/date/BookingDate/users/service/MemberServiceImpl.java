@@ -7,17 +7,44 @@ import com.book.date.BookingDate.users.repository.RoleRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final MemberRepo memberRepo;
     private final RoleRepo roleRepo;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Member member = memberRepo.findByEmail(username);
+        if (member == null) {
+            log.error("User {} Not found", username);
+            throw new UsernameNotFoundException("User {} Not found");
+        } else {
+            log.info("User {} found", username);
+        }
+        Collection<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        for (Role role : member.getRoles()) {
+            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return new org.springframework
+                .security.core.userdetails
+                .User(member.getEmail(), member.getPassword(), simpleGrantedAuthorities);
+    }
 
     @Override
     public Member save(Member member) {
@@ -52,5 +79,10 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> getMembers() {
         log.info("Fetch members");
         return memberRepo.findAll();
+    }
+
+    @Bean
+    private BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
