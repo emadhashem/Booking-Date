@@ -1,13 +1,15 @@
-package com.book.date.BookingDate.users.entity;
+package com.book.date.BookingDate.features.members.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
+@Builder
 @Entity
 @Table
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
@@ -17,7 +19,4 @@ public class Role {
     @Column(unique = true)
     private String name;
 
-    public Role(String name) {
-        this.name = name;
-    }
 }

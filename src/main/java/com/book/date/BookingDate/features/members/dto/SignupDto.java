@@ -1,15 +1,15 @@
-package com.book.date.BookingDate.users.controller;
+package com.book.date.BookingDate.features.members.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequest {
+@NoArgsConstructor
+public class SignupDto {
     private String email;
+    private String name;
+    private String role;
     private String password;
 }

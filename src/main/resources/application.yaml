@@ -12,7 +12,7 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
   main:
     banner-mode: off
@@ -30,3 +30,8 @@ logging:
             bind: trace
       springframework:
         security: DEBUG
+server:
+  jwt-secret: daf66e01593f61a15b857cf433aae03a005812b31234e149036bcc8dee755dbb
+  jwt-expire-milli: 604800000
+  error:
+    include-message: always
