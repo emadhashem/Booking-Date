@@ -1,12 +1,15 @@
 package com.book.date.BookingDate.features.members.entity;
 
 
+import com.book.date.BookingDate.features.rooms.entity.Room;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -38,5 +41,8 @@ public class Member {
     )
     private Set<Role> roles;
 
-
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Room> rooms;
 }
+
