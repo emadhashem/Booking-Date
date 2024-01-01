@@ -1,5 +1,6 @@
 package com.book.date.BookingDate.features.rooms.dao;
 
+import com.book.date.BookingDate.features.members.entity.Member;
 import com.book.date.BookingDate.features.rooms.entity.Room;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -19,7 +21,6 @@ public class RoomDao {
 
     private final EntityManager entityManager;
 
-    @Transactional
     public Room save(Room newRoom) {
 
         return entityManager.merge(newRoom);
@@ -47,6 +48,17 @@ public class RoomDao {
 
         TypedQuery<Room> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
-
     }
+
+    public boolean isUserInRoom(int userId, Room room) {
+        List<Member> members = room.getUsers().stream().filter(item -> item.getId() == userId)
+                .toList();
+
+        return !members.isEmpty();
+    }
+
+    public boolean checkAccess(String access, Room room) {
+        return room.getAccessCode().equals(access);
+    }
+
 }

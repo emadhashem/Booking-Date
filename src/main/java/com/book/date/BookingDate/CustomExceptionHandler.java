@@ -1,5 +1,6 @@
 package com.book.date.BookingDate;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,26 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
             DataIntegrityViolationException ex,
             WebRequest request) {
         String bodyOfResponse = "Data integrity violation: " + ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse,
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value = {BadRequestException.class})
+    protected ResponseEntity<Object> handleBadRequest(
+            BadRequestException ex,
+            WebRequest request) {
+        String bodyOfResponse = ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse,
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value = {RuntimeException.class})
+    protected ResponseEntity<Object> handleRuntimeException(
+            RuntimeException ex,
+            WebRequest request) {
+        String bodyOfResponse = ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST, request);

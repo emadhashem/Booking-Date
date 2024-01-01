@@ -34,12 +34,26 @@ public class Room {
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Seat> seats;
 
+    @ManyToMany
+    @JoinTable(name = "room_users"
+            , joinColumns = @JoinColumn(name = "room_name")
+            , inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<Member> users;
+
     public void addSeat(Seat seat) {
         if (seats == null) {
             seats = new ArrayList<>();
         }
         seats.add(seat);
         seat.setRoom(this);
+    }
+
+    public void addUsers(List<Member> _users) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        users.addAll(_users);
     }
 
 }

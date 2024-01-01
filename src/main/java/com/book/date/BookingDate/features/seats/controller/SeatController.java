@@ -2,6 +2,7 @@ package com.book.date.BookingDate.features.seats.controller;
 
 import com.book.date.BookingDate.features.members.repository.MemberRepo;
 import com.book.date.BookingDate.features.rooms.dao.RoomDao;
+import com.book.date.BookingDate.features.seats.controller.dto.AssignOrRemoveSeatToUserDto;
 import com.book.date.BookingDate.features.seats.dao.SeatDao;
 import com.book.date.BookingDate.features.seats.controller.dto.CreateSeatDto;
 import com.book.date.BookingDate.features.seats.controller.dto.CreateSeatListItem;
@@ -34,5 +35,11 @@ public class SeatController {
 
     ) {
         return ResponseEntity.ok().body(seatService.fetchSeats(roomName, search));
+    }
+
+    @PutMapping("/assign")
+    public ResponseEntity<String> assignOrRemoveUser(@RequestBody AssignOrRemoveSeatToUserDto dto) {
+        seatService.assignOrRemoveUser(dto);
+        return ResponseEntity.ok().body("Seat updated.");
     }
 }
