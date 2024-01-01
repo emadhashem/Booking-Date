@@ -50,13 +50,9 @@ public class RoomController {
     }
 
     @DeleteMapping("/delete-user")
-    public ResponseEntity<String> removeUser(@RequestBody RemoveUserDto dto) throws BadRequestException {
-        try {
-            roomService.removeUser(dto);
-            return ResponseEntity.ok().body("User Removed");
-        } catch (BadRequestException e) {
-            throw e;
-        }
+    public ResponseEntity<String> removeUser(@RequestBody RemoveUserDto dto) {
+        roomService.removeUser(dto);
+        return ResponseEntity.ok().body("User Removed");
     }
 }
 
