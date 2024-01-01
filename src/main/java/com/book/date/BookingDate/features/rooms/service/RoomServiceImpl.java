@@ -68,7 +68,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     @Transactional
-    public void removeUser(RemoveUserDto dto) throws RuntimeException {
+    public void removeUser(RemoveUserDto dto) throws RuntimeException{
         Room room = roomDao.findByName(dto.getRoomName());
 
         if (!checkAccess(dto.getAccessCode(), room)) {

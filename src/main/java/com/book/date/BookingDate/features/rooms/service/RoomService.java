@@ -16,7 +16,7 @@ public interface RoomService {
 
     void addUsersToRoom(JoinUsersRoomDto dto) throws BadRequestException;
 
-    void removeUser(RemoveUserDto dto) throws BadRequestException;
+    void removeUser(RemoveUserDto dto) throws RuntimeException;
 
     boolean checkAccess(String access, Room room);
 }
