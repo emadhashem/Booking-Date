@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface MemberService {
 
-    List<Member> findUsers(List<Integer> userIds);
+    List<Member> findUsersByIds(List<Integer> userIds);
 
+    List<Member> searchUsers(String search);
 }

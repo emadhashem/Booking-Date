@@ -9,6 +9,8 @@ import com.book.date.BookingDate.features.seats.controller.dto.CreateSeatListIte
 import com.book.date.BookingDate.features.seats.controller.dto.CreateSeatsDto;
 import com.book.date.BookingDate.features.seats.entity.Seat;
 import com.book.date.BookingDate.features.seats.service.SeatService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

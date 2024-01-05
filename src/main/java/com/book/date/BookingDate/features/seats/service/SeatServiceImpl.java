@@ -46,7 +46,6 @@ public class SeatServiceImpl implements SeatService {
     @Override
     @Transactional
     public void assignOrRemoveUser(AssignOrRemoveSeatToUserDto dto) {
-        System.out.println(dto.getUserId());
         Optional<Seat> oSeat = seatRepo.findById(dto.getSeatId());
         if (oSeat.isEmpty()) throw new RuntimeException("Seat not found");
         Room room = roomDao.findByName(dto.getRoomName());

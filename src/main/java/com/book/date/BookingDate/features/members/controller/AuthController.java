@@ -21,7 +21,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<JwtAuthResponse> signup(@RequestBody SignupDto signupDto) throws BadRequestException {
+    public ResponseEntity<JwtAuthResponse> signup(@RequestBody SignupDto signupDto) {
         String token = authService.signup(signupDto);
         return ResponseEntity.ok(new JwtAuthResponse(token, "Bearer"));
     }

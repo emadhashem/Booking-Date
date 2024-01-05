@@ -45,7 +45,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     @Transactional
     public void addUsersToRoom(JoinUsersRoomDto dto) throws BadRequestException {
-        List<Member> users = memberService.findUsers(dto.getUsers());
+        List<Member> users = memberService.findUsersByIds(dto.getUsers());
         Room room = roomDao.findByName(dto.getRoomName());
         if (!checkAccess(dto.getAccessCode(), room)) {
             throw new BadRequestException("Room access denied");

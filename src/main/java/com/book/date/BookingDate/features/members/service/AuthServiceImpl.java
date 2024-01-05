@@ -44,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String signup(SignupDto signupDto) throws ResponseStatusException {
+    public String signup(SignupDto signupDto) {
 
         Set<Role> roles = initRoles(signupDto);
         memberRepo.save(

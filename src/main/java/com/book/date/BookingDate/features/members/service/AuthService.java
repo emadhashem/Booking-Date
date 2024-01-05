@@ -6,5 +6,5 @@ import org.apache.coyote.BadRequestException;
 
 public interface AuthService {
     String login(LoginDto loginDto);
-    String signup(SignupDto signupDto) throws BadRequestException;
+    String signup(SignupDto signupDto);
 }

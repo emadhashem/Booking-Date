@@ -14,7 +14,12 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepo memberRepo;
 
     @Override
-    public List<Member> findUsers(List<Integer> userIds) {
+    public List<Member> findUsersByIds(List<Integer> userIds) {
         return memberRepo.findAllById(userIds);
+    }
+
+    @Override
+    public List<Member> searchUsers(String search) {
+        return memberRepo.searchAllByEmailOrName(search, search);
     }
 }
