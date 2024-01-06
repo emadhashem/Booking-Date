@@ -18,19 +18,28 @@ Sql-server Data-base</li>
 <li>JWT Authentication, Along with Spring-security</li>
 <li>Lombok</li>
 <li>JUnit for unit testing</li>
-<li>H2 data-base for testing purposes</li>
+<li>H2 data-base for testing purposes</li>?
+<li>docker - docker-compose</li>
 </ul>
 
 ## Run It
 
+<ul>
+<li>you can run docker compose up </li>
+<li>
+If you don't have docker,  do the following :
 <ul>
 <li>
 Make Sure of installing Sql server
 </li>
 <li>Create a database and configure application.yaml </li>
 </ul>
+</li>
+
+</ul>
 
 ### Features
+
 <ol>
 <li>Login - Register</li>
 <li>
