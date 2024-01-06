@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://localhost:1433;database=bookingDate;encrypt=false
-    username: sa
-    password: password
+    url: jdbc:sqlserver://${MSSQL_HOST}:${MSSQL_PORT};database=${MSSQL_DATABASE};
+    username: ${MSSQL_USERNAME}
+    password: ${MSSQL_PASSWORD}
 
   jpa:
     show-sql: true

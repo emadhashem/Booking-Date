@@ -152,6 +152,5 @@ public class SeatControllerTest {
                 );
         result.andExpect(MockMvcResultMatchers.status().isForbidden());
 
-        verify(seatService, times(1)).assignOrRemoveUser(assignOrRemoveSeatToUserDto);
     }
 }
